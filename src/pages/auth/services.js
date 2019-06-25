@@ -32,12 +32,16 @@ export const deleteLogout = (token) => {
 }
 
 export const verifyEmail = email => {
-  return http.get(`/users/verify/${email}`)
+  return http.get(`/users/verify/email`, {
+    params: {
+      email: email
+    }
+  })
     .then(response => response.data)
     .catch(err => Promise.reject(new Error(`FAIL_IN_FIND_USER_EMAIL: ${err}`)))
 }
 
-export const resetPasswd = (token, passwd) => {
+export const resetUserPassword = (token, passwd) => {
   return http.put(`/users/resetpasswd/${token}`, { passwd },
     { headers: services.authenticate(token) }
   )

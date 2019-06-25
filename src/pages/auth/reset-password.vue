@@ -1,17 +1,16 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { isEmpty } from 'lodash'
-import { resetPasswd, verifyEmail } from './services'
+import { resetUserPassword, verifyEmail } from './services'
 
 export default {
   name: 'ResetPassword',
   data: () => ({
-    resetPasswd,
+    resetUserPassword,
     verifyEmail,
     email: '',
     firstAttempt: '',
-    secondAttempt: '',
-    loading: false
+    secondAttempt: ''
   }),
   computed: {
     isEmailValid () {
@@ -27,14 +26,27 @@ export default {
   methods: {
     ...mapActions(['attemptLogin', 'setMessage', 'setFetching']),
     ...mapGetters(['currentToken']),
-    async resetPassword () {
-      const token = this.$route.params.token
+    validPassword () {
       if (!this.isNewPassValid) {
         this.setMessage({ type: 'warning', message: 'Preencha corretamente as senhas' })
+        return false
+      }
+      return true
+    },
+    validEmail (email) {
+      if (!email) {
+        this.setMessage({ type: 'warning', message: 'Preencha o email' })
+        return false
+      }
+      return true
+    },
+    async resetPassword () {
+      const token = this.$route.params.token
+      if (!this.validPassword()) {
         return
       }
       try {
-        await this.resetPasswd(token, this.firstAttempt)
+        await this.resetUserPassword(token, this.firstAttempt)
         this.setMessage({ type: 'success', message: 'Senha alterada com sucesso!' })
       } catch (e) {
         this.setMessage({ type: 'warning', message: 'Erro ao alterar senha' })
@@ -48,8 +60,7 @@ export default {
     async sendEmail () {
       const email = this.email
       try {
-        if (!email) {
-          this.setMessage({ type: 'warning', message: 'Preencha o email' })
+        if (!this.validEmail(email)) {
           return
         }
         await this.verifyEmail(email)
@@ -71,7 +82,7 @@ export default {
       <div>
         <q-input class="q-mb-md" type="email" clearable label="E-mail cadastrado" color="grey-10" v-model="email" />
       </div>
-      <q-btn :loading="loading" flat color="blue-8" size="15px" @click="sendEmail">Enviar confirmação</q-btn>
+      <q-btn flat color="blue-8" size="15px" @click="sendEmail">Enviar confirmação</q-btn>
     </div>
     <div v-if="validToken">
       <div>
@@ -80,7 +91,7 @@ export default {
       <div>
         <q-input class="q-mb-md" type="password" clearable label="Confirme a senha" color="grey-10" v-model="secondAttempt" />
       </div>
-      <q-btn :loading="loading" flat color="blue-8" size="15px" @click="resetPassword">Enviar confirmação</q-btn>
+      <q-btn flat color="blue-8" size="15px" @click="resetPassword">Enviar confirmação</q-btn>
     </div>
   </div>
 </template>

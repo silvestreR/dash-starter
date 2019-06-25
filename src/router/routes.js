@@ -16,7 +16,7 @@ const routes = [
     component: () => import('layouts/authLayout.vue'),
     children: [
       { path: '', name: 'auth.index', component: () => import('pages/auth/auth.vue') },
-      { path: 'reset-password/:token', name: 'reset-password.index', component: () => import('pages/auth/resetpassword.vue') }
+      { path: 'reset-password/:token', name: 'reset-password.index', component: () => import('pages/auth/reset-password.vue') }
     ]
   }
 ]
