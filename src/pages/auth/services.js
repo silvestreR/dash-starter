@@ -30,3 +30,17 @@ export const deleteLogout = (token) => {
   ).then(response => response.data)
     .catch(err => Promise.reject(new Error(`FAIL_IN_LOGOUT_USER: ${err}`)))
 }
+
+export const verifyEmail = email => {
+  return http.get(`/users/verify/${email}`)
+    .then(response => response.data)
+    .catch(err => Promise.reject(new Error(`FAIL_IN_FIND_USER_EMAIL: ${err}`)))
+}
+
+export const resetPasswd = (token, passwd) => {
+  return http.put(`/users/resetpasswd/${token}`, { passwd },
+    { headers: services.authenticate(token) }
+  )
+    .then(response => response.data)
+    .catch(err => Promise.reject(new Error(`FAIL_IN_UPDATE: ${err}`)))
+}

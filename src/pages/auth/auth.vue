@@ -22,6 +22,9 @@ export default {
     reset () {
       this.user.password = ''
     },
+    resetPassword () {
+      this.$router.push({ name: 'reset-password.index', params: { token: '0' } })
+    },
     async signIn () {
       const credentials = this.user
       try {
@@ -54,6 +57,9 @@ export default {
     </div>
     <div style="margin: 10px 0px; width: 100%; height: 40px; padding-left: 33%; padding-right: auto; padding-top: 10px">
       <q-btn :loading="loading" color="blue-8" size="15px" @click="signIn" :disabled="isValid">Entrar</q-btn>
+    </div>
+    <div style="padding-top: 20px">
+      <q-btn :loading="loading" flat color="blue-8" size="15px" @click="resetPassword">Esqueci minha senha</q-btn>
     </div>
   </div>
 </template>
