@@ -1,13 +1,11 @@
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 import { isEmpty } from 'lodash'
 import { resetUserPassword, verifyEmail } from './services'
 
 export default {
   name: 'ResetPassword',
   data: () => ({
-    resetUserPassword,
-    verifyEmail,
     email: '',
     firstAttempt: '',
     secondAttempt: ''
@@ -24,29 +22,22 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['attemptLogin', 'setMessage', 'setFetching']),
-    ...mapGetters(['currentToken']),
+    ...mapActions(['setMessage']),
     validPassword () {
-      if (!this.isNewPassValid) {
-        this.setMessage({ type: 'warning', message: 'Preencha corretamente as senhas' })
-        return false
-      }
-      return true
+      if (this.isNewPassValid) return true
+      this.setMessage({ type: 'warning', message: 'Preencha corretamente as senhas' })
+      return false
     },
     validEmail (email) {
-      if (!email) {
-        this.setMessage({ type: 'warning', message: 'Preencha o email' })
-        return false
-      }
-      return true
+      if (email) return true
+      this.setMessage({ type: 'warning', message: 'Preencha o email' })
+      return false
     },
     async resetPassword () {
-      const token = this.$route.params.token
-      if (!this.validPassword()) {
-        return
-      }
       try {
-        await this.resetUserPassword(token, this.firstAttempt)
+        if (!this.validPassword()) return
+        const token = this.$route.params.token
+        await resetUserPassword(token, this.firstAttempt)
         this.setMessage({ type: 'success', message: 'Senha alterada com sucesso!' })
       } catch (e) {
         this.setMessage({ type: 'warning', message: 'Erro ao alterar senha' })
@@ -58,12 +49,10 @@ export default {
       }
     },
     async sendEmail () {
-      const email = this.email
       try {
-        if (!this.validEmail(email)) {
-          return
-        }
-        await this.verifyEmail(email)
+        const email = this.email
+        if (this.validEmail(email)) return
+        await verifyEmail(email)
         this.setMessage({ type: 'success', message: 'Enviado! Verifique seu email' })
         this.$router.push({ name: 'auth.index' })
       } catch (e) {
