@@ -1,80 +1,21 @@
 <script>
-import crudMixins from '@mixins/crud'
 import { selectOptionsRoles } from '../../roles'
-import { date } from 'quasar'
-import services from '../../services'
-import ccForm from '@components/form'
 export default {
-  components: {
-    ccForm
-  },
-  name: 'CcUserForm',
-  mixins: [crudMixins.postCreate, crudMixins.updateById, crudMixins.getById],
-  data: () => ({
-    selectOptionsRoles,
-    model: 'users',
-    services,
-    tabConfig: {
-      one: 'fas fa-user'
-      // two: 'fas fa-home',
-      // tree: 'fas fa-user',
-      // four: 'fas fa-home',
-      // five: 'fas fa-home'
-    },
+  name: 'ccUserForm',
+  props: {
     user: {
-      _id: null,
-      username: '',
-      fullname: '',
-      email: '',
-      role: '',
-      status: true,
-      createdAt: '',
-      updatedAt: '',
-      password: ''
-    }
-  }),
-  mounted () {
-    this.fetch()
-  },
-  computed: {
-    isEditing () {
-      return this.user._id
-    },
-    isValid () {
-      this.$refs.fullname.validate()
-      this.$refs.email.validate()
-      this.$refs.role.validate()
-      if (!this.$refs.fullname.hasError && !this.$refs.email.hasError && !this.$refs.role.hasError) return true
-      this.setMessage({ type: 'warning', message: 'Por favor, revise o campos obrigatórios' })
-      return false
+      type: Object,
+      default: () => ({})
     }
   },
-  methods: {
-    setCurrentUser (currentUser) {
-      const { _id, username, fullname, email, role, status, createdAt, updatedAt } = currentUser
-      this.user._id = _id
-      this.user.username = username
-      this.user.fullname = fullname
-      this.user.email = email
-      this.user.role = role
-      this.user.status = status
-      this.user.createdAt = date.formatDate(createdAt, 'YYYY-MM-DD')
-      this.user.updatedAt = date.formatDate(updatedAt, 'YYYY-MM-DD')
-    },
-    hide () {
-      this.$router.push({ name: 'users.index' })
-    }
-  }
+  data: () => ({
+    selectOptionsRoles
+  })
 }
 </script>
 
 <template>
-  <cc-form
-    :tabs="tabConfig"
-    @submit="submit"
-    @hide="hide">
-    <template slot="tab-1">
-      <div class="text-h6 q-mb-md">Cadastro de Usuário</div>
+    <div class="text-h6 q-mb-md">Cadastro de Usuário
       <div class="row q-col-gutter-md">
         <div class="col-xs-12 col-sm-6">
           <q-input ref="fullname" :rules="[val => !!val || 'Campo Obrigatório']" color="grey-8" v-model="user.fullname" label="Nome Completo"/>
@@ -95,8 +36,8 @@ export default {
           <q-input v-model="user.updatedAt" disable type="date" stack-label label="Última alteração" />
         </div>
       </div>
-    </template>
-  </cc-form>
+    </div>
 </template>
-<style scoped>
+
+<style lang="css" scoped>
 </style>
