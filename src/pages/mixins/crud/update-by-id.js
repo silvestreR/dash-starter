@@ -4,6 +4,28 @@ const currentToken = () => store().getters.currentToken
 export const updateById = {
   methods: {
     ...mapActions(['setFetching', 'setMessage']),
+    block (payload) {
+      this.$q.dialog({
+        title: 'Confirmação',
+        message: 'Bloquear ?',
+        ok: 'SIM',
+        cancel: 'NÃO'
+      }).onOk(() => {
+        const token = currentToken()
+        const id = payload.selected._id
+        this.setFetching({ fetching: true })
+        this.services.updateById(this.model, token, { status: false }, id).then(() => {
+          this.fetch({ pagination: this.serverPagination })
+          this.setFetching({ fetching: false })
+          this.setMessage({ type: 'warning', message: 'Bloqueado' })
+        })
+          .catch((error) => {
+            console.log(error)
+            this.setFetching({ fetching: false })
+          })
+      }).onCancel(() => {
+      })
+    },
     async unBlock (payload) {
       try {
         const id = payload.selected._id
@@ -25,7 +47,7 @@ export const updateById = {
         const token = currentToken()
         this.setFetching({ fetching: true })
         await this.services.updateById(this.model, token, { ...user }, id)
-        this.hide()
+        this.hideForm()
         this.setMessage({ type: 'success', message: 'Alterado com sucesso' })
       } catch (e) {
         console.log('Erro: ', e)

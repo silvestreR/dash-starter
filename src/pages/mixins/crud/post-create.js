@@ -20,7 +20,7 @@ export const postCreate = {
         this.setFetching({ fetching: true })
         await this.services.postCreate(this.model, token, { ...user })
         this.setMessage({ type: 'success', message: 'Sucesso' })
-        this.hide()
+        this.hideForm()
       } catch (e) {
         console.log('Erro', e)
       } finally {
