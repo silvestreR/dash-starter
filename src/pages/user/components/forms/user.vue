@@ -3,8 +3,8 @@ import crudMixins from '@mixins/crud'
 import router from '@mixins/router'
 import { date } from 'quasar'
 import services from '../../services'
-import ccForm from '@components/form'
 import ccUserForm from './user-form'
+import ccForm from '@components/form'
 import ccAddress from '@components/address'
 export default {
   components: {
@@ -44,13 +44,7 @@ export default {
       }
     }
   }),
-  mounted () {
-    this.fetch()
-  },
   computed: {
-    isEditing () {
-      return this.user._id
-    },
     isValid () {
       const userRef = this.$refs.user.$refs
       userRef.fullname.validate()
@@ -63,23 +57,14 @@ export default {
   },
   methods: {
     setCurrentData (currentData) {
-      const { _id, username, fullname, email, role, status, createdAt, updatedAt } = currentData
-      this.user._id = _id
-      this.user.username = username
-      this.user.fullname = fullname
-      this.user.email = email
-      this.user.role = role
-      this.user.status = status
+      const { createdAt, updatedAt } = currentData
+      this.user = currentData
+      this.user.password = ''
       this.user.createdAt = date.formatDate(createdAt, 'YYYY-MM-DD')
       this.user.updatedAt = date.formatDate(updatedAt, 'YYYY-MM-DD')
     },
     setAddress (payload) {
-      this.user.address.zipCode = payload.cep
-      this.user.address.street = payload.logradouro
-      this.user.address.complement = payload.complemento
-      this.user.address.neighborhood = payload.bairro
-      this.user.address.city = payload.localidade
-      this.user.address.state = payload.uf
+      this.user.address = payload.address
     }
   }
 }

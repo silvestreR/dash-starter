@@ -20,14 +20,9 @@ export default {
     disable: {
       type: Boolean,
       default: () => false
-    },
-    label: {
-      type: String,
-      default: () => 'ENDEREÇO'
     }
   },
   data: () => ({
-    // stateMethod: '',
     selectOptionsUFMethod
   }),
   methods: {
@@ -42,7 +37,15 @@ export default {
           this.setMessage({ type: 'warning', message: 'CEP não encontrado' })
           this.$emit('setAddress', { address: { street: '', complement: '', neighborhood: '', city: '', state: '' } })
         }
-        this.$emit('setAddress', { ...address })
+        this.$emit('setAddress', { address: {
+          zipCode: address.cep,
+          street: address.logradouro,
+          complement: address.complemento,
+          neighborhood: address.bairro,
+          city: address.localidade,
+          state: address.uf
+        }
+        })
       } catch (err) {
         console.log('erro', err)
       } finally {
