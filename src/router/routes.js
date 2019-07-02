@@ -6,9 +6,9 @@ const routes = [
     meta: { authRequired: true },
     children: [
       { path: '', name: 'dashboard.index', component: () => import('pages/index.vue') },
-      { path: '/users', name: 'users.index', component: () => import('pages/user/components/user-main.vue') },
-      { path: '/user/:id/edit', name: 'user.edit', component: () => import('pages/user/components/forms/user-form') },
-      { path: '/user/create', name: 'user.new', component: () => import('pages/user/components/forms/user-form') }
+      { path: '/users', name: 'user.index', component: () => import('pages/user/components/user-main.vue') },
+      { path: '/user/:id/edit', name: 'user.edit', component: () => import('pages/user/components/forms/user') },
+      { path: '/user/create', name: 'user.new', component: () => import('pages/user/components/forms/user') }
     ]
   },
   {

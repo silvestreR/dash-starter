@@ -10,8 +10,8 @@ export const getById = {
         const token = currentToken()
         if (!id) return
         this.setFetching({ fetching: true })
-        const currentUser = await this.services.getById(this.model, token, id)
-        this.setCurrentUser(currentUser)
+        const currentData = await this.services.getById(this.model, token, id)
+        this.setCurrentData(currentData)
       } catch (e) {
         console.log('Erro:', e)
       } finally {

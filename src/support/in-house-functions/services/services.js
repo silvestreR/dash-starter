@@ -32,18 +32,24 @@ export const getById = (model, token, id) => {
     .catch(err => Promise.reject(new Error(`FAIL_IN_GET_BY_ID: ${err}`)))
 }
 
-export const updateById = (model, token, user, id) => {
-  return http.put(`/${model}/${id}`, { ...user },
+export const updateById = (model, token, data, id) => {
+  return http.put(`/${model}/${id}`, { ...data },
     { headers: authenticate(token) }
   )
     .then(response => response.data)
     .catch(err => Promise.reject(new Error(`FAIL_IN_UPDATE: ${err}`)))
 }
 
-export const postCreate = (model, token, users) => {
-  return http.post(`/${model}`, { ...users },
+export const postCreate = (model, token, data) => {
+  return http.post(`/${model}`, { ...data },
     { headers: authenticate(token) }
   )
     .then(response => response.data)
     .catch(err => Promise.reject(new Error(`FAIL_IN_POST_CREATE: ${err}`)))
+}
+
+export const getCep = (cep) => {
+  return http.get(`https://viacep.com.br/ws/${cep}/json/`, {})
+    .then(response => response.data)
+    .catch(err => Promise.reject(new Error(`FAIL_IN_FIND_CEP: ${err}`)))
 }

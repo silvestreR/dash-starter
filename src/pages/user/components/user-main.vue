@@ -2,11 +2,12 @@
 import { columns, visibleColumns } from '../table'
 import ccTableMain from '@components/table-main'
 import crudMixins from '@mixins/crud'
+import router from '@mixins/router'
 import services from '../services'
 
 export default {
   name: 'CcUsers',
-  mixins: [crudMixins.getAll, crudMixins.deleteById, crudMixins.updateById],
+  mixins: [crudMixins.getAll, crudMixins.deleteById, crudMixins.updateById, router.navigation],
   components: {
     ccTableMain
   },
@@ -14,20 +15,9 @@ export default {
     columns,
     visibleColumns,
     model: 'users',
+    routerName: 'user',
     services
-  }),
-  methods: {
-    edit (payload) {
-      const id = payload.selected._id
-      this.$router.push({ name: 'user.edit', params: { id } })
-    },
-    create () {
-      this.$router.push({ name: 'user.new' })
-    },
-    hide () {
-      this.$router.push({ name: 'dashboard.index' })
-    }
-  }
+  })
 }
 </script>
 
@@ -42,12 +32,14 @@ export default {
     :columns="columns"
     :visibleColumns="visibleColumns"
     :allowBlock="true"
+    :allowRemove="true"
     :serverPagination="serverPagination"
     :loading="loading"
     @create="create"
-    @hide="hide"
+    @hide="hideMain"
     @edit="edit"
     @block="block"
+    @remove="remove"
     @update="unBlock"
     @sync="fetch">
     </cc-table-main>
