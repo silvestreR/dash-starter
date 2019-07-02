@@ -6,11 +6,13 @@ import services from '../../services'
 import ccUserForm from './user-form'
 import ccForm from '@components/form'
 import ccAddress from '@components/address'
+import ccPhone from '@components/phone'
 export default {
   components: {
     ccForm,
     ccUserForm,
-    ccAddress
+    ccAddress,
+    ccPhone
   },
   name: 'CcUser',
   mixins: [crudMixins.postCreate, crudMixins.updateById, crudMixins.getById, router.navigation],
@@ -20,8 +22,8 @@ export default {
     services,
     tabConfig: {
       one: 'fas fa-user',
-      two: 'fas fa-home'
-      // tree: 'fas fa-user',
+      two: 'fas fa-home',
+      tree: 'fas fa-user'
       // four: 'fas fa-home',
       // five: 'fas fa-home'
     },
@@ -35,6 +37,7 @@ export default {
       createdAt: '',
       updatedAt: '',
       password: '',
+      phones: [],
       address: {
         street: '',
         complement: '',
@@ -65,6 +68,9 @@ export default {
     },
     setAddress (payload) {
       this.user.address = payload.address
+    },
+    sync (payload) {
+      this.user.phones = payload.data
     }
   }
 }
@@ -86,6 +92,12 @@ export default {
         :address="user.address"
         @setAddress="setAddress">
       </cc-address>
+    </template>
+    <template slot="tab-3">
+      <cc-phone
+        :phones="user.phones"
+        @sync="sync">
+      </cc-phone>
     </template>
   </cc-form>
 </template>
