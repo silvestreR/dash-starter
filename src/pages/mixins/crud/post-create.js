@@ -6,12 +6,15 @@ export const postCreate = {
     ...mapActions(['setFetching', 'setMessage']),
     submit (data) {
       if (this.isValid) {
-        if (this.isEditing) {
+        if (this.isEditing(data)) {
           this.update(data)
         } else {
           this.save(data)
         }
       }
+    },
+    isEditing (data) {
+      return data._id
     },
     async save (data) {
       try {

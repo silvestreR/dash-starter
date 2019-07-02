@@ -2,6 +2,9 @@ import { mapActions } from 'vuex'
 import store from '@store'
 const currentToken = () => store().getters.currentToken
 export const getById = {
+  mounted () {
+    this.fetch()
+  },
   methods: {
     ...mapActions(['setFetching', 'setMessage']),
     async fetch () {
