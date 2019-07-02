@@ -5,10 +5,12 @@ import { date } from 'quasar'
 import services from '../../services'
 import ccForm from '@components/form'
 import ccUserForm from './user-form'
+import ccAddress from '@components/address'
 export default {
   components: {
     ccForm,
-    ccUserForm
+    ccUserForm,
+    ccAddress
   },
   name: 'CcUser',
   mixins: [crudMixins.postCreate, crudMixins.updateById, crudMixins.getById, router.navigation],
@@ -17,8 +19,8 @@ export default {
     routerName: 'user',
     services,
     tabConfig: {
-      one: 'fas fa-user'
-      // two: 'fas fa-home',
+      one: 'fas fa-user',
+      two: 'fas fa-home'
       // tree: 'fas fa-user',
       // four: 'fas fa-home',
       // five: 'fas fa-home'
@@ -32,7 +34,14 @@ export default {
       status: true,
       createdAt: '',
       updatedAt: '',
-      password: ''
+      password: '',
+      address: {
+        street: '',
+        complement: '',
+        neighborhood: '',
+        city: '',
+        state: ''
+      }
     }
   }),
   mounted () {
@@ -53,8 +62,8 @@ export default {
     }
   },
   methods: {
-    setCurrentUser (currentUser) {
-      const { _id, username, fullname, email, role, status, createdAt, updatedAt } = currentUser
+    setCurrentData (currentData) {
+      const { _id, username, fullname, email, role, status, createdAt, updatedAt } = currentData
       this.user._id = _id
       this.user.username = username
       this.user.fullname = fullname
@@ -63,6 +72,14 @@ export default {
       this.user.status = status
       this.user.createdAt = date.formatDate(createdAt, 'YYYY-MM-DD')
       this.user.updatedAt = date.formatDate(updatedAt, 'YYYY-MM-DD')
+    },
+    setAddress (payload) {
+      this.user.address.zipCode = payload.cep
+      this.user.address.street = payload.logradouro
+      this.user.address.complement = payload.complemento
+      this.user.address.neighborhood = payload.bairro
+      this.user.address.city = payload.localidade
+      this.user.address.state = payload.uf
     }
   }
 }
@@ -71,13 +88,19 @@ export default {
 <template>
   <cc-form
     :tabs="tabConfig"
-    @submit="submit"
+    @submit="submit(user)"
     @hide="hideForm">
     <template slot="tab-1">
       <cc-user-form
         ref="user"
         :user="user">
       </cc-user-form>
+    </template>
+    <template slot="tab-2">
+      <cc-address
+        :address="user.address"
+        @setAddress="setAddress">
+      </cc-address>
     </template>
   </cc-form>
 </template>

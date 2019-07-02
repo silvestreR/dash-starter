@@ -4,21 +4,20 @@ const currentToken = () => store().getters.currentToken
 export const postCreate = {
   methods: {
     ...mapActions(['setFetching', 'setMessage']),
-    submit () {
+    submit (data) {
       if (this.isValid) {
         if (this.isEditing) {
-          this.update()
+          this.update(data)
         } else {
-          this.save()
+          this.save(data)
         }
       }
     },
-    async save () {
+    async save (data) {
       try {
-        const user = this.user
         const token = currentToken()
         this.setFetching({ fetching: true })
-        await this.services.postCreate(this.model, token, { ...user })
+        await this.services.postCreate(this.model, token, { ...data })
         this.setMessage({ type: 'success', message: 'Sucesso' })
         this.hideForm()
       } catch (e) {
