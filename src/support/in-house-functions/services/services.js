@@ -47,3 +47,9 @@ export const postCreate = (model, token, data) => {
     .then(response => response.data)
     .catch(err => Promise.reject(new Error(`FAIL_IN_POST_CREATE: ${err}`)))
 }
+
+export const getCep = (cep) => {
+  return http.get(`https://viacep.com.br/ws/${cep}/json/`, {})
+    .then(response => response.data)
+    .catch(err => Promise.reject(new Error(`FAIL_IN_FIND_CEP: ${err}`)))
+}

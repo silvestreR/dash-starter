@@ -40,13 +40,12 @@ export const updateById = {
         this.setFetching({ fetching: false })
       }
     },
-    async update () {
+    async update (data) {
       try {
-        const user = this.user
-        const id = this.user._id
+        const id = data._id
         const token = currentToken()
         this.setFetching({ fetching: true })
-        await this.services.updateById(this.model, token, { ...user }, id)
+        await this.services.updateById(this.model, token, { ...data }, id)
         this.hideForm()
         this.setMessage({ type: 'success', message: 'Alterado com sucesso' })
       } catch (e) {

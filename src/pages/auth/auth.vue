@@ -9,7 +9,8 @@ export default {
       email: '',
       password: ''
     },
-    loading: false
+    loading: false,
+    loadingReset: false
   }),
   computed: {
     isValid () {
@@ -23,7 +24,11 @@ export default {
       this.user.password = ''
     },
     resetPassword () {
-      this.$router.push({ name: 'reset-password.index', params: { token: '0' } })
+      this.loadingReset = true
+      setTimeout(() => {
+        this.loadingReset = false
+        this.$router.push({ name: 'reset-password.index', params: { token: '0' } })
+      }, 1000)
     },
     async signIn () {
       const credentials = this.user
@@ -55,11 +60,11 @@ export default {
         <q-input @keyup.enter="signIn" class="q-mb-lg" v-model="user.password" type="password" color="grey-10" clearable label="Senha" />
       </div>
     </div>
-    <div style="margin: 10px 0px; width: 100%; height: 40px; padding-left: 33%; padding-right: auto; padding-top: 10px">
-      <q-btn :loading="loading" color="blue-8" size="15px" @click="signIn" :disabled="isValid">Entrar</q-btn>
+    <div>
+      <q-btn class="full-width" :loading="loading" color="blue-4" @click="signIn" :disabled="isValid">Entrar</q-btn>
     </div>
-    <div style="padding-top: 20px">
-      <q-btn :loading="loading" flat color="blue-8" size="15px" @click="resetPassword">Esqueci minha senha</q-btn>
+    <div class="q-mt-sm">
+      <q-btn class="full-width" :loading="loadingReset" flat color="blue-6" no-caps size="12px" @click="resetPassword">Esqueci minha senha</q-btn>
     </div>
   </div>
 </template>

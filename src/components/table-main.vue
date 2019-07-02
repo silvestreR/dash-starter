@@ -154,9 +154,9 @@ export default {
   <template slot="top-selection">
     <q-btn v-if="allowEdit" :loading="loadingEdit" color="blue-4" glossy @click="edit()" :label="labelEditButton" class="q-mr-sm" />
     <div class="col"/>
-    <q-btn v-if="!isBlock && allowBlock" :loading="loadingBlock" color="negative" size="md" flat round delete icon="fas fa-ban" @click="block()"/>
-    <q-btn v-if="isBlock && allowBlock" :loading="loadingUpdate" color="positive" size="md" flat round delete icon="fas fa-unlock-alt" @click="update()"/>
-    <q-btn v-if="allowRemove" class="q-mr-xl" color="negative" size="md" flat round delete icon="fas fa-trash" @click="remove()"/>
+    <q-btn v-if="!isBlock && allowBlock" :loading="loadingBlock" color="negative" size="12px" flat round delete icon="fas fa-ban" @click="block()"/>
+    <q-btn v-if="isBlock && allowBlock" :loading="loadingUpdate" color="positive" size="12px" flat round delete icon="fas fa-unlock-alt" @click="update()"/>
+    <q-btn v-if="allowRemove" class="q-mr-xl" color="negative" size="12px" flat round delete icon="fas fa-trash" @click="remove()"/>
   </template>
 
     <template slot="top-left">
@@ -168,9 +168,9 @@ export default {
     </template>
 
     <template slot="top-right">
-      <q-btn v-if="allowAdd" class="q-mr-lg" glossy round color="grey-6" icon="fas fa-plus" @click="create()"/>
-      <q-btn class="q-mr-lg" color="grey-6" glossy round icon="fas fa-chevron-left" @click="hide()"/>
-      <q-btn class="q-mr-lg" color="grey-6" :loading="loadingSync" glossy round icon="fas fa-sync-alt" @click="syncByButton({ pagination: computedServerPagination, filter })"/>
+      <q-btn v-if="allowAdd" class="q-mr-lg" size="12px" glossy round color="grey-6" icon="fas fa-plus" @click="create()"/>
+      <q-btn class="q-mr-lg" color="grey-6" size="12px" glossy round icon="fas fa-chevron-left" @click="hide()"/>
+      <q-btn class="q-mr-lg" color="grey-6" size="12px" :loading="loadingSync" glossy round icon="fas fa-sync-alt" @click="syncByButton({ pagination: computedServerPagination, filter })"/>
     </template>
   </q-table>
 </template>
