@@ -1,7 +1,7 @@
 <script>
 import services from '@in-house-functions/services'
 import { mapActions } from 'vuex'
-import { selectOptionsUFMethod } from '@in-house-functions/selectOptionsUF'
+import { selectOptionsUFMethod } from '@support/options/uf-options'
 export default {
   name: 'ccAddress',
   props: {
