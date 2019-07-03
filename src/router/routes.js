@@ -9,9 +9,9 @@ const routes = [
       { path: '/users', name: 'user.index', component: () => import('pages/user/components/user-main.vue') },
       { path: '/user/:id/edit', name: 'user.edit', component: () => import('pages/user/components/forms/user') },
       { path: '/user/create', name: 'user.new', component: () => import('pages/user/components/forms/user') },
-      { path: '/clients', name: 'clients.index', component: () => import('pages/client/components/client-main.vue') },
-      { path: '/client/:id/edit', name: 'client.edit', component: () => import('pages/client/components/forms/client-form') },
-      { path: '/client/create', name: 'client.new', component: () => import('pages/client/components/forms/client-form') }
+      { path: '/clients', name: 'client.index', component: () => import('pages/client/components/client-main.vue') },
+      { path: '/client/:id/edit', name: 'client.edit', component: () => import('pages/client/components/forms/client') },
+      { path: '/client/create', name: 'client.new', component: () => import('pages/client/components/forms/client') }
     ]
   },
   {

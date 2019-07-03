@@ -1,5 +1,4 @@
-// import { date } from 'quasar'
-// import { calculateAge } from '@in-house-functions/calculateAge'
+import { date } from 'quasar'
 export const columns = [
   {
     name: '_id',
@@ -45,8 +44,50 @@ export const columns = [
     classes: 'bg-white',
     filter: true,
     sortable: false,
+    type: 'number',
+    align: 'left'
+  },
+  {
+    name: 'status',
+    label: 'status',
+    field: 'status',
+    width: '100px',
+    style: { color: 'dark' },
+    classes: 'bg-white',
+    filter: true,
+    sortable: false,
     type: 'string',
     align: 'left'
+  },
+  {
+    name: 'updatedAt',
+    label: 'Ùltima Alteração',
+    field: 'updatedAt',
+    width: '100px',
+    style: { color: 'dark' },
+    classes: 'bg-white',
+    filter: true,
+    sortable: false,
+    type: 'string',
+    align: 'left',
+    format (value) {
+      return date.formatDate(value, 'DD/MM/YYYY')
+    }
+  },
+  {
+    name: 'createdAt',
+    label: 'Data Criação',
+    field: 'createdAt',
+    width: '100px',
+    style: { color: 'dark' },
+    classes: 'bg-white',
+    filter: true,
+    sortable: false,
+    type: 'string',
+    align: 'left',
+    format (value) {
+      return date.formatDate(value, 'DD/MM/YYYY')
+    }
   }
 ]
-export const visibleColumns = ['company', 'fantasyname', 'cpf']
+export const visibleColumns = ['company', 'fantasyname', 'cpf', 'status']
