@@ -1,3 +1,5 @@
 # Quasar App
 
-> WIP
+Utilizando YARN no Projeto
+
+=>  npx quasar dev
