@@ -52,7 +52,8 @@ module.exports = function (ctx) {
         'QField',
         'QDate',
         'QSeparator',
-        'QCard'
+        'QCard',
+        'QBtnToggle'
       ],
 
       directives: [
@@ -75,10 +76,10 @@ module.exports = function (ctx) {
     build: {
       env: ctx.dev
         ? { // so on dev we'll have
-          API: JSON.stringify('http://0.0.0.0:4220/api/v1')
+          API: JSON.stringify('http://0.0.0.0:4220/api/v2')
         }
         : { // and on build (production):
-          API: JSON.stringify('/api/v1')
+          API: JSON.stringify('/api/v2')
         },
       scopeHoisting: true,
       // vueRouterMode: 'history',
