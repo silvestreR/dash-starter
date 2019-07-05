@@ -27,7 +27,6 @@ export default {
       <h5 class="q-pl-lg text-italic">USUÁRIOS</h5>
     </div>
     <cc-table-main
-    labelButton="Usuário"
     :data="data"
     :columns="columns"
     :visibleColumns="visibleColumns"

@@ -11,8 +11,4 @@ export const createClient = (options = {}) => axios.create(defaults({
   }
 }, options))
 
-export function setToken (token) {
-  createClient.defaults.headers.common.Authorization = `Bearer ${token}`
-}
-
 export default createClient()
