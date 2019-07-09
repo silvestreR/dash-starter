@@ -55,15 +55,6 @@ export default {
             <q-item-label caption>Cadastro</q-item-label>
           </q-item-section>
         </q-item>
-        <q-item to="/clients">
-          <q-item-section avatar>
-            <q-icon name="account_circle" />
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Clientes</q-item-label>
-            <q-item-label caption>Cadastro</q-item-label>
-          </q-item-section>
-        </q-item>
       </q-list>
     </q-drawer>
     <q-page-container class="bg-grey-3">
