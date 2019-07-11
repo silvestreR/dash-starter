@@ -41,8 +41,8 @@ export const verifyEmail = email => {
     .catch(err => Promise.reject(new Error(`FAIL_IN_FIND_USER_EMAIL: ${err}`)))
 }
 
-export const resetUserPassword = (token, passwd) => {
-  return http.put(`/users/resetpasswd/${token}`, { passwd },
+export const resetUserPassword = (token, password) => {
+  return http.put(`/users/resetpassword/${token}`, { password },
     { headers: services.authenticate(token) }
   )
     .then(response => response.data)

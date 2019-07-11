@@ -51,7 +51,7 @@ export default {
     async sendEmail () {
       try {
         const email = this.email
-        if (this.validEmail(email)) return
+        if (!this.validEmail(email)) return
         await verifyEmail(email)
         this.setMessage({ type: 'success', message: 'Enviado! Verifique seu email' })
         this.$router.push({ name: 'auth.index' })
